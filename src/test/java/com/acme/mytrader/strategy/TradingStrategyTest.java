@@ -60,7 +60,7 @@ public class TradingStrategyTest {
 
     @Test
     public void testInitMonitorStockPricesToBuyWithMatchingPrice() {
-        Order customerOrder = new Order("IBM",30.00,50,Order.OrderType.BUY);
+        Order customerOrder = new Order("IBM",50.00,50,Order.OrderType.BUY);
         priceListener = new PriceListenerImpl(executionService,customerOrder);
         tradingStrategy = new TradingStrategy(priceSource,executionService,priceListener);
         tradingStrategy.initMonitorStockPrices(customerOrder);
@@ -69,15 +69,15 @@ public class TradingStrategyTest {
               .buy(securityCaptor.capture(), priceCaptor.capture(), volumeCaptor.capture());
 
         assertThat(securityCaptor.getValue(),is("IBM"));
-        assertThat(priceCaptor.getValue(),is(30.00));
+        assertThat(priceCaptor.getValue(),is(50.00));
         assertThat(volumeCaptor.getValue(),is(50));
     }
 
 
 
     @Test
-    public void testInitMonitorStockPricesToBuyWithHigherPrice() {
-        Order customerOrder = new Order("IBM",70,50,Order.OrderType.BUY);
+    public void testInitMonitorStockPricesToBuyWithLowerPrice() {
+        Order customerOrder = new Order("IBM",30,50,Order.OrderType.BUY);
         priceListener = new PriceListenerImpl(executionService,customerOrder);
         tradingStrategy = new TradingStrategy(priceSource,executionService,priceListener);
         tradingStrategy.initMonitorStockPrices(customerOrder);

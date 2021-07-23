@@ -1,7 +1,6 @@
 package com.acme.mytrader.validators;
 
 import com.acme.mytrader.dto.Order;
-import com.acme.mytrader.exceptions.OrderMismatchException;
 
 public class OrderValidator {
 

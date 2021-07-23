@@ -14,7 +14,6 @@ public class PriceListenerImpl implements PriceListener{
     private List<Order> buyOrders;
     private List<Order> sellOrders;
     private OrderDAO orderDAO;
-    private final double PRICE_THRESHOLD = 50.00;
     private Order buyOrder;
 
     private Order matchedSellOrder;
@@ -75,7 +74,7 @@ public class PriceListenerImpl implements PriceListener{
 
         Optional<Order> matchOrder = sellOrders.stream()
                 .filter(sellOrder -> sellOrder.getOrderType() != buyOrder.getOrderType() && sellOrder.getSecurity().equals(security) )
-                .filter(sellOrder -> price < PRICE_THRESHOLD && sellOrder.getVolume() >= buyOrder.getVolume())
+                .filter(sellOrder -> price > sellOrder.getPrice() && sellOrder.getVolume() >= buyOrder.getVolume())
                 .findFirst();
         if(matchOrder.isPresent()) {
              matchedSellOrder = matchOrder.get();
